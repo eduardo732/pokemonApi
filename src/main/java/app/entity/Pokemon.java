@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "Pokemon")
 public class Pokemon {
 
     @Id
