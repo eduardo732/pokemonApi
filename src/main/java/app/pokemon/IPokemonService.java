@@ -1,6 +1,4 @@
-package app.service;
-
-import app.vo.GetPokemonsVO;
+package app.pokemon;
 
 import java.util.List;
 

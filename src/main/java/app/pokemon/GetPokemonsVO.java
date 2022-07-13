@@ -1,4 +1,4 @@
-package app.vo;
+package app.pokemon;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

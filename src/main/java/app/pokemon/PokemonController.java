@@ -1,9 +1,6 @@
-package app.controller;
+package app.pokemon;
 
 import app.helpers.Error;
-import app.service.IPokemonService;
-import app.vo.GetPokemonsVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +12,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/pokemon")
 public class PokemonController {
-    @Autowired
-    private IPokemonService iPokemonService;
 
-    @GetMapping("/getPokemons")
+    private final IPokemonService iPokemonService;
+
+	public PokemonController(IPokemonService iPokemonService) {
+		this.iPokemonService = iPokemonService;
+	}
+
+	@GetMapping("/getPokemons")
     @CrossOrigin(value = "*", methods = RequestMethod.GET)
 	public ResponseEntity<GenericResponse<?>> getPokemons() {
 
@@ -38,12 +39,12 @@ public class PokemonController {
 		 * Validar si existen errores, de existir, se retorna la respuesta estándar con
 		 * la lista de errores, se debe conservar la estructura de Payload.
 		 */
-		if (errores.size() > 0) {
-			response.setErrores(errores);
-			response.setSuccess(HttpStatus.CONFLICT);
-
-			return new ResponseEntity<GenericResponse<?>>(response, null, HttpStatus.BAD_REQUEST);
-		}
+//		if (errores.size() > 0) {
+//			response.setErrores(errores);
+//			response.setSuccess(HttpStatus.CONFLICT);
+//
+//			return new ResponseEntity<GenericResponse<?>>(response, null, HttpStatus.BAD_REQUEST);
+//		}
 
 		List<GetPokemonsVO> getPokemonsVOList = iPokemonService.getPokemons();
 
@@ -60,11 +61,6 @@ public class PokemonController {
 		response.setPayload(getPokemonsVOList);
 		return new ResponseEntity<GenericResponse<?>>(response, null, HttpStatus.OK);
 	}
-        public Error setErrors(String code, String descripcion) {
-		Error error = new Error();
-		error.setCode(code);
-		error.setDescription(descripcion);
-		return error;
-	}
+
 }
 
